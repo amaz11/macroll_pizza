@@ -2,26 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+   /* outline: 1px solid red; */
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+   margin: 0;
+   padding: 0;
+}
+
+.custom-date-input::-webkit-calendar-picker-indicator {
+   /* background-color: #F43B00; */
+   font-size: 24px;
+   mix-blend-mode: multiply;
+   filter: invert(54%) sepia(100%) saturate(7075%) hue-rotate(19deg) brightness(108%) contrast(110%);
+}
+
+.bg-img {
+   background-image: url('../public/ezgif.com-webp-to-jpg-converter.jpg');
+}
+
+.scroll-bar::-webkit-scrollbar {
+   width: 3px !important;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+   background-color: #F43B00;
 }
