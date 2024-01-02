@@ -3,14 +3,14 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import prisma from "../../db/db"
 import brcrypt from 'bcryptjs'
 
-interface User {
-    id: string;
-    email: string,
-    password?: string;
-    adddress: string
-    createdAt: Date;
-    updatedAt: Date;
-}
+// interface User {
+//     id: string;
+//     email: string,
+//     password?: string;
+//     adddress: string
+//     createdAt: Date;
+//     updatedAt: Date;
+// }
 
 const handler = NextAuth({
     providers: [
@@ -37,7 +37,7 @@ const handler = NextAuth({
                     }
                 })
                 const passOk = user && brcrypt.compare(password, user.password)
-                if (passOk) {
+                if (passOk && user) {
                     return {
                         id: user.id.toString(),
                         email: user.email,
@@ -45,14 +45,21 @@ const handler = NextAuth({
                         createdAt: user.createdAt,
                         updatedAt: user.updatedAt,
                     }
+                    // return user
                 }
                 // Return null if user data could not be retrieved
                 return null
             }
         })
     ],
+    callbacks: {
+        async session({ session, user, token }) {
+            session.user = token
+            return session
+        },
+    },
     pages: {
-        signIn: '/app/auth/signin'
+        signIn: '/auth/signin'
     }
 })
 
