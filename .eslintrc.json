@@ -1,6 +1,7 @@
 {
-  "extends": "next/core-web-vitals",
-  "ignorePatterns": [
-    "_test/**"
-  ]
+  "extends": "next",
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
+  }
 }
