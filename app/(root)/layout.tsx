@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 }
 
 interface LayoutProps {
-    children: React.ReactNode;
-    session: Session;
+    children: React.ReactNode,
+    session: Session
 }
 
 export default function Layout({ children, session }: LayoutProps) {
