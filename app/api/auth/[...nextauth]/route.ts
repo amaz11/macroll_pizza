@@ -13,6 +13,7 @@ import brcrypt from 'bcryptjs'
 // }
 
 const handler = NextAuth({
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
             // The name to display on the sign in form (e.g. 'Sign in with...')

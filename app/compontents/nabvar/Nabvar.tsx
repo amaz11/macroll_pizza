@@ -7,9 +7,11 @@ import Link from 'next/link'
 import { FiShoppingCart } from "react-icons/fi"
 import { signIn, signOut, useSession } from 'next-auth/react'
 
+
+
+
 const Nabvar = () => {
     const session = useSession()
-    console.log(session)
     return (
         <div className={`${mooli.className} flex justify-between items-center p-8`}>
             <div className=''>
@@ -40,7 +42,7 @@ const Nabvar = () => {
                     <span className='absolute -top-[18px] -right-2 font-semibold text-lg text-[#F43B00]'>0</span>
                 </div>
                 <div>
-                    {session.status === "authenticated" ? <Link href={`/profile/${session.data.user?.email}`} >Profile</Link> : null}
+                    {session && session.status === "authenticated" && session.data?.user ? <Link href={`/profile/${session.data.user.sub}`} >Profile</Link> : null}
                 </div>
                 <div>
                     {session.status === "authenticated" ? <button onClick={() => signOut()}>Sign out</button> : <button onClick={() => signIn()}>Sing-in</button>}
