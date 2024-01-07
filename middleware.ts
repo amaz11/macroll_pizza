@@ -4,4 +4,4 @@ export default withAuth({
     secret: process.env.NEXTAUTH_SECRET,
 })
 
-export const config = { matcher: ["/profile/:user"] };
+export const config = { matcher: ["/profile/:user", '/categories'] };
