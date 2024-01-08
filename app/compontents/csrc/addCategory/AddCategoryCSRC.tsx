@@ -1,8 +1,11 @@
 'use client'
+
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
-const AddCategoryCSRC = ({ children }: { children: React.ReactNode }) => {
+const AddCategoryCSRC = () => {
     const [category, setCategory] = useState('')
+    const router = useRouter()
 
     const categoryFormHandl = async () => {
         try {
@@ -11,6 +14,7 @@ const AddCategoryCSRC = ({ children }: { children: React.ReactNode }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ category })
             })
+            router.refresh()
         } catch (error) {
 
         }
@@ -25,7 +29,6 @@ const AddCategoryCSRC = ({ children }: { children: React.ReactNode }) => {
                     >Add Category</button>
                 </div>
             </div>
-            {children}
         </>
     )
 }

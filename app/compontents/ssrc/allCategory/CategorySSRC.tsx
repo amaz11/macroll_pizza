@@ -11,7 +11,7 @@ async function get() {
 }
 
 const CategorySSRC = async () => {
-    const data  = await get()
+    const {data } = await get()
     console.log(data)
     return (
 

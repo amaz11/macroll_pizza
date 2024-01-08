@@ -16,9 +16,10 @@ async function userByID(id: string) {
 
 const Profile = async ({ params }: { params: { user: string } }) => {
     const { data } = await userByID(params.user)
+    console.log(data)
     return (
         <div>
-            <AdminNab  />
+            <AdminNab />
             <div className="p-16">
                 <div className="p-8 bg-white shadow mt-24">
                     <div className="flex items-center gap-5">

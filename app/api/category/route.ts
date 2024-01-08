@@ -3,7 +3,6 @@ import prisma from "../db/db"
 export async function POST(req: Request) {
     try {
         const body = await req.json()
-        console.log(body)
         if (!body.category.length) {
             return Response.json({ error: `Category can't be Empty.` })
 
