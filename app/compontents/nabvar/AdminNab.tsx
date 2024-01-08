@@ -7,7 +7,6 @@ import React from 'react'
 const AdminNab = () => {
     const path = usePathname()
     const session = useSession()
-    console.log(session)
 
     return (
         <div className='flex justify-center items-center gap-8 text-white'>

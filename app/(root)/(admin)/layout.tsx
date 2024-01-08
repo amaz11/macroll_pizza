@@ -12,12 +12,11 @@ export const metadata: Metadata = {
 
 
 
-export default function Layout({ children, params
+export default function Layout({ children
 }: {
     children: React.ReactNode,
-    params: { user: string }
 }) {
-    console.log('params:', params)
+
     return (
         <>
             <AdminNab />

@@ -6,7 +6,6 @@ export async function POST(req: Request) {
         const body = await req.json()
 
         if (!body.email.length) {
-            console.log("shit")
             return Response.json({ error: `Email can't be Empty.` })
 
         }
