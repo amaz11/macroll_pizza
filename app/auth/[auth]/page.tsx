@@ -8,8 +8,8 @@ import { signIn } from 'next-auth/react'
 
 
 const Auth = ({ params }: { params: { auth: string } }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('test@gmail.com')
+  const [password, setPassword] = useState('123456')
   const [address, setAddress] = useState('')
 
   async function submitHandle(e: FormEvent<HTMLFormElement>) {
@@ -66,14 +66,14 @@ const Auth = ({ params }: { params: { auth: string } }) => {
           <form onSubmit={submitHandle}>
             <div className="mt-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-              <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" value={email} onChange={e => setEmail(e.target.value)} defaultValue={'test@gmail.com'} />
+              <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" value={email} onChange={e => setEmail(e.target.value)} />
             </div>
             <div className="mt-4">
               <div className="flex justify-between">
                 <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
                 {/* <a href="#" className="text-xs text-gray-500">Forget Password?</a> */}
               </div>
-              <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete='' defaultValue={'123456'} />
+              <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete='' />
             </div>
             {params.auth === "signup" ? <div className="mt-4">
               <div className="flex justify-between">

@@ -3,14 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import prisma from "../../db/db"
 import brcrypt from 'bcryptjs'
 
-// interface User {
-//     id: string;
-//     email: string,
-//     password?: string;
-//     adddress: string
-//     createdAt: Date;
-//     updatedAt: Date;
-// }
+
 
 const handler = NextAuth({
     secret: process.env.NEXTAUTH_SECRET,
@@ -32,35 +25,43 @@ const handler = NextAuth({
                 if (!email || !password) {
                     return null;
                 }
-                const user = await prisma.user.findUnique({
+                const userfind = await prisma.user.findUnique({
                     where: {
                         email,
                     }
                 })
-                const passOk = user && brcrypt.compare(password, user.password)
-                if (passOk && user) {
-                    return {
-                        id: user.id.toString(),
-                        email: user.email,
-                        address: user.address,
-                        createdAt: user.createdAt,
-                        updatedAt: user.updatedAt,
+                const passOk = userfind && brcrypt.compare(password, userfind.password)
+                if (passOk && userfind) {
+                    const user = {
+                        id: userfind.id.toString(),
+                        email: userfind.email,
+                        address: userfind.address,
+                        role: userfind.role,
+                        createdAt: userfind.createdAt,
+                        updatedAt: userfind.updatedAt,
                     }
-                    // return user
+                    return user
                 }
                 // Return null if user data could not be retrieved
                 return null
             }
         })
     ],
+
     callbacks: {
-        async session({ session, user, token }) {
+        async jwt({ token, user }) {
+            return {
+                ...token, ...user
+            }
+        },
+        async session({ session, token, }) {
             session.user = token
             return session
         },
     },
     pages: {
-        signIn: '/auth/signin'
+        signIn: '/auth/signin',
+        signOut: '/'
     }
 })
 

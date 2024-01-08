@@ -6,6 +6,7 @@ import { mooli } from '@/app/layout'
 import Link from 'next/link'
 import { FiShoppingCart } from "react-icons/fi"
 import { signIn, signOut, useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 
 
 
@@ -42,10 +43,10 @@ const Nabvar = () => {
                     <span className='absolute -top-[18px] -right-2 font-semibold text-lg text-[#F43B00]'>0</span>
                 </div>
                 <div>
-                    {session && session.status === "authenticated" && session.data?.user ? <Link href={`/profile/${session.data.user.sub}`} >Profile</Link> : null}
+                    {session && session.status === "authenticated" && session.data?.user ? <Link href={`/profile/${session.data.user.id}`} >Profile</Link> : null}
                 </div>
                 <div>
-                    {session.status === "authenticated" ? <button onClick={() => signOut()}>Sign out</button> : <button onClick={() => signIn()}>Sing-in</button>}
+                    {session.status === "authenticated" ? <button onClick={() => signOut()}>Sign out</button> : <button onClick={() => { signIn(); redirect('/') }}>Sing-in</button>}
                 </div>
             </div>
         </div>
