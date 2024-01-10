@@ -9,10 +9,17 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 
 
-
+interface User {
+    id: string,
+    role: string,
+    address: string,
+    email: string,
+}
 
 const Nabvar = () => {
     const session = useSession()
+    const user = session.data?.user as User
+
     return (
         <div className={`${mooli.className} flex justify-between items-center p-8`}>
             <div className=''>
@@ -43,7 +50,7 @@ const Nabvar = () => {
                     <span className='absolute -top-[18px] -right-2 font-semibold text-lg text-[#F43B00]'>0</span>
                 </div>
                 <div>
-                    {session && session.status === "authenticated" && session.data?.user ? <Link href={`/profile/${session.data.user.id}`} >Profile</Link> : null}
+                    {session && session.status === "authenticated" && session.data?.user ? <Link href={`/profile/${user.id}`} >Profile</Link> : null}
                 </div>
                 <div>
                     {session.status === "authenticated" ? <button onClick={() => signOut()}>Sign out</button> : <button onClick={() => { signIn(); redirect('/') }}>Sing-in</button>}

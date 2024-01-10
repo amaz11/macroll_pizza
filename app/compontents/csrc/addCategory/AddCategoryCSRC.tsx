@@ -1,10 +1,13 @@
 'use client'
-
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
+
+
+
 const AddCategoryCSRC = () => {
     const [category, setCategory] = useState('')
+
     const router = useRouter()
 
     const categoryFormHandl = async () => {

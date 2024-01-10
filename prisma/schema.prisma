@@ -25,7 +25,17 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Product {
+  id          Int          @id @default(autoincrement())
+  image       String
+  name        String       @db.VarChar(100)
+  price       Decimal      @db.Decimal(10, 2)
+  description String       @db.VarChar(1000)
+  category    Categories[]
+}
+
 model Categories {
-  id       Int    @id @default(autoincrement())
-  category String @db.VarChar(30)
+  id       Int       @id @default(autoincrement())
+  category String    @db.VarChar(30)
+  product  Product[]
 }
