@@ -1,42 +1,49 @@
 import { NextRequest } from "next/server"
 import prisma from "../db/db"
-
-interface Arr {
-    id: number
-}[]
+import { join } from "path"
+import { writeFile } from "fs/promises"
 
 export async function POST(req: NextRequest) {
-    // try {
+    try {
 
-    const body = await req.formData()
-    const name = body.get('name')
-    const price = body.get('price')
-    const category = body.get('category') as string
+        const body = await req.formData()
+        const name = body.get('name') as string
+        const price = body.get('price') as string
+        const description = body.get('description') as string
+        const category = body.get('category') as string
+        const image: File | null = body.get('image') as unknown as File
 
-    // const categoryString: string | null = category !== null ? category.toString() : null;
+        // const categoryString: string | null = category !== null ? category.toString() : null;
 
-    // if (!body.name.length || !body.price.toString().length) {
-    //     return Response.json({ error: `Name and price can't be Empty.` })
+        if (!name.length && !price.length && !image) {
+            return Response.json({ error: `Name, price and image can't be Empty.` })
 
-    // }
-    // const product = await prisma.product.create({
-    //     data: {
-    //         ...body,
-    //         category: { set: body.category }
-    //     },
-    //     include: {
-    //         category: true
-    //     }
+        }
+        const categoryPerse = JSON.parse(category)
+        const imageBytes = await image.arrayBuffer()
+        const imageBuffer = Buffer.from(imageBytes)
+        const imagePath = join('/', 'file', image.name)
+        await writeFile(imagePath, imageBuffer)
+        const product = await prisma.product.create({
+            data: {
+                name: name,
+                price: +price,
+                description,
+                image: imagePath.toString(),
+                category: { connect: categoryPerse },
+            },
+            include: {
+                category: true
+            }
 
-    // })
-    const categoryPerse = JSON.parse(category)
+        })
 
-    console.log(categoryPerse)
-    return Response.json({ status: 201 })
+        console.log(categoryPerse)
+        return Response.json({ status: 201 })
 
-    // } catch (error) {
-    //     return Response.json({ error: "Some thing is not right" }, { status: 500 })
-    // }
+    } catch (error) {
+        return Response.json({ error: "Some thing is not right" }, { status: 500 })
+    }
 
 }
 

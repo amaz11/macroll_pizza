@@ -72,7 +72,7 @@ const ProductAdminForm = () => {
 
                             <div className='mb-4'>
                                 <label className="text-gray-700" htmlFor="username">Price</label>
-                                <input type="text" className="block w-full px-4 py-2 mt-2 text-gray-700  border  rounded-md   border-gray-600 focus:border-blue-500  focus:outline-none focus:ring" value={price} onChange={e => setPrice(e.target.value)} />
+                                <input type="text" pattern="[0-9]" className="block w-full px-4 py-2 mt-2 text-gray-700  border  rounded-md   border-gray-600 focus:border-blue-500  focus:outline-none focus:ring" value={price} onChange={e => setPrice(e.target.value)} />
                             </div>
 
                             <div className='mb-4'>
