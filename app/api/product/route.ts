@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server"
 import prisma from "../db/db"
-import { join } from "path"
+
 import { writeFile } from "fs/promises"
 
 export async function POST(req: NextRequest) {
@@ -22,14 +22,14 @@ export async function POST(req: NextRequest) {
         const categoryPerse = JSON.parse(category)
         const imageBytes = await image.arrayBuffer()
         const imageBuffer = Buffer.from(imageBytes)
-        const imagePath = join('/', 'file', image.name)
+        const imagePath = `./public/file/${Date.now()}${image.name}`
         await writeFile(imagePath, imageBuffer)
         const product = await prisma.product.create({
             data: {
                 name: name,
                 price: +price,
                 description,
-                image: imagePath.toString(),
+                image: imagePath.split('./public/')[1].toString(),
                 category: { connect: categoryPerse },
             },
             include: {
@@ -38,11 +38,10 @@ export async function POST(req: NextRequest) {
 
         })
 
-        console.log(categoryPerse)
-        return Response.json({ status: 201 })
+        return Response.json({ data: product }, { status: 201 })
 
     } catch (error) {
-        return Response.json({ error: "Some thing is not right" }, { status: 500 })
+        return Response.json({ error }, { status: 500 })
     }
 
 }

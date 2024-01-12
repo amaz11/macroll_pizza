@@ -1,6 +1,9 @@
 'use client'
+import { revalidateTag } from 'next/cache';
+import { useRouter } from 'next/navigation';
 import React, { FormEvent, useEffect, useState } from 'react'
 import { FaChevronDown } from "react-icons/fa6";
+import { RxCross2 } from 'react-icons/rx';
 
 const ProductAdminForm = () => {
     const [name, setName] = useState('')
@@ -10,7 +13,7 @@ const ProductAdminForm = () => {
     const [categories, setCategories] = useState<[]>([])
     const [image, setImage] = useState<File>()
     const [dropdown, setDropdown] = useState<boolean>(false)
-
+    const router = useRouter()
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault()
@@ -30,6 +33,7 @@ const ProductAdminForm = () => {
                 // headers: { 'Content-Type': 'multipart/form-data' },
                 body: data
             })
+            router.refresh()
         } catch (error) {
 
         }
@@ -39,7 +43,6 @@ const ProductAdminForm = () => {
         const res = await fetch('http://localhost:3000/api/category', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            cache: 'no-store'
         })
 
         if (res.status === 200) {
@@ -49,10 +52,18 @@ const ProductAdminForm = () => {
     }
 
     const addCategory = (id: number) => {
+        const categoryFind = category.find(value => value.id === id)
+        if (categoryFind) {
+            return
+        }
         const newObject = { 'id': id }
-        const arr = [newObject, ...category]
-        console.log('hello')
+        const arr = [...category, newObject]
         setCategory(arr)
+    }
+
+    const deleteCategory = (id: number) => {
+        const filtterArr = category.filter(value => value.id !== id)
+        setCategory(filtterArr)
     }
 
     useEffect(() => {
@@ -72,7 +83,7 @@ const ProductAdminForm = () => {
 
                             <div className='mb-4'>
                                 <label className="text-gray-700" htmlFor="username">Price</label>
-                                <input type="text" pattern="[0-9]" className="block w-full px-4 py-2 mt-2 text-gray-700  border  rounded-md   border-gray-600 focus:border-blue-500  focus:outline-none focus:ring" value={price} onChange={e => setPrice(e.target.value)} />
+                                <input type="text" pattern="[0-9]+" className="block w-full px-4 py-2 mt-2 text-gray-700  border  rounded-md   border-gray-600 focus:border-blue-500  focus:outline-none focus:ring" value={price} onChange={e => setPrice(e.target.value)} />
                             </div>
 
                             <div className='mb-4'>
@@ -81,10 +92,20 @@ const ProductAdminForm = () => {
                             </div>
 
                             <div className='mb-4'>
-                                {category.map(({ id }: { id: number }, index: number) => {
-                                    return <span key={index}>{id}</span>
-                                })}
                                 <label className="text-gray-700" htmlFor="passwordConfirmation">Ingrediant</label>
+                                <div className='my-2 gap-4 flex items-center'>
+                                    {category.map(({ id }: { id: number }, index: number) => {
+                                        return categories.map((value: { id: number, category: string }) => {
+                                            if (value.id === id)
+                                                return <span className='py-1 px-4 bg-[#F43B00] flex items-center gap-2 text-white text-[12px] rounded-full' key={index}><span> {value.category}</span> <RxCross2 size={12} className='text-white cursor-pointer'
+                                                    onClick={() => deleteCategory(id)} />
+                                                </span>
+                                            else
+                                                return
+                                        })
+                                    })}
+                                </div>
+
                                 <div className='relative'>
                                     <div className='block w-full px-4 py-2 mt-2 text-gray-700 cursor-pointer  rounded-md border border-gray-600' onClick={() => setDropdown(!dropdown)}>
                                         <span>Select Ingrediant</span>

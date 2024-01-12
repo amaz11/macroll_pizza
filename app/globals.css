@@ -29,3 +29,18 @@ body {
 .scroll-bar::-webkit-scrollbar-thumb {
    background-color: #F43B00;
 }
+
+.product-overlay {
+   position: relative;
+}
+
+.product-overlay::after {
+   content: '';
+   background-color: rgba(0, 0, 0);
+   opacity: .4;
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   left: 0;
+   top: 0;
+}
