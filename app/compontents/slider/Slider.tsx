@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -25,24 +27,54 @@ const Slider = () => {
                 clickable: true,
             }}
             modules={[Autoplay, FreeMode, Pagination]}
+            breakpoints={{
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                },
+                768: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                },
+            }}
             className=""
         >
-            <SwiperSlide><Image src={slide1} alt='slide1' style={{
-                maxWidth: '100%',
-                height: '100%',
-            }} /> </SwiperSlide>
-            <SwiperSlide><Image src={slide2} alt='slide2' style={{
-                maxWidth: '100%',
-                height: '100%',
-            }} /></SwiperSlide>
-            <SwiperSlide><Image src={slide3} alt='slide3' style={{
-                maxWidth: '100%',
-                height: '100%',
-            }} /></SwiperSlide>
-            <SwiperSlide><Image src={slide4} alt='slide4' style={{
-                maxWidth: '100%',
-                height: '100%',
-            }} /></SwiperSlide>
+            <SwiperSlide>
+                <div>
+                    <Image src={slide1} alt='slide1' style={{
+                        width: '100%',
+                        height: '100%',
+                    }} />
+                </div>
+            </SwiperSlide>
+            <SwiperSlide>
+                <div>
+                    <Image src={slide2} alt='slide2' style={{
+                        width: '100%',
+                        height: '100%',
+                    }} />
+                </div>
+            </SwiperSlide>
+            <SwiperSlide>
+                <div>
+                    <Image src={slide3} alt='slide3' style={{
+                        width: '100%',
+                        height: '100%',
+                    }} />
+                </div>
+            </SwiperSlide>
+            <SwiperSlide>
+                <div>
+                    <Image src={slide4} alt='slide4' style={{
+                        width: '100%',
+                        height: '100%',
+                    }} />
+                </div>
+            </SwiperSlide>
         </Swiper>
 
     )

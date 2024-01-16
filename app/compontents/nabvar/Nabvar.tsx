@@ -5,6 +5,7 @@ import logo from '@/public/home-3-logo.png'
 import { mooli } from '@/app/layout'
 import Link from 'next/link'
 import { FiShoppingCart } from "react-icons/fi"
+import { FaBars } from "react-icons/fa";
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 
@@ -22,7 +23,7 @@ const Nabvar = () => {
 
     return (
         <div className={`${mooli.className} flex justify-between items-center p-8`}>
-            <div className=''>
+            <div className='hidden xl:block'>
                 <ul className='flex justify-between items-center gap-4 font-semibold text-lg'>
                     <li className='text-[#F43B00] cursor-pointer'><Link href={'/auth/signup'}>
                         Home
@@ -54,6 +55,9 @@ const Nabvar = () => {
                 </div>
                 <div>
                     {session.status === "authenticated" ? <button onClick={() => signOut()}>Sign out</button> : <button onClick={() => { signIn(); redirect('/') }}>Sing-in</button>}
+                </div>
+                <div className='block xl:hidden'>
+                    <FaBars size={28} className='text-[#F43B00]' />
                 </div>
             </div>
         </div>

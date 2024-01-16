@@ -18,6 +18,7 @@ export default function Layout({ children, session }: LayoutProps) {
     return (
         <AuthSession session={session}>
             <Nabvar />
+
             {children}
         </AuthSession>
     )
