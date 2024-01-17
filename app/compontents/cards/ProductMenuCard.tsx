@@ -17,11 +17,11 @@ const ProductMenuCard = ({ image, name, price, ingredient }: PizzaMenu) => {
             </div>
             <div className="grow">
                 <div className="flex justify-between gap-4 items-end mb-2">
-                    <h5 className={`${staatliches.className} text-[34px] text-[#F43B00] p-0 m-0 leading-6`}>{name}</h5>
+                    <h5 className={`${staatliches.className} text-[18px] sm:text-[24px] md:text-[34px] text-[#F43B00] p-0 m-0 leading-6`}>{name}</h5>
                     <div className="grow border-b-2 border-b-[#F43B00] border-dashed"></div>
-                    <span className={`${fraunces.className} text-[20px] text-[#F43B00] leading-4`}>{price}$</span>
+                    <span className={`${fraunces.className} text-[14px] sm:text-[16px] md:text-[20px] text-[#F43B00] leading-4`}>{price}$</span>
                 </div>
-                <span className={`${fraunces.className} text-[16px] text-[#F43B00] leading-4 italic`}>{ingredient}</span>
+                <span className={`${fraunces.className} text-[12px] sm:text-[14px] md:text-[16px] text-[#F43B00] leading-4 italic line-clamp-1`}>{ingredient}</span>
             </div>
         </div>
     )

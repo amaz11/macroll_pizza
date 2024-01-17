@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <main className="min-h-screen ">
       {/* Hero Section */}
-      <div className={`flex flex-col lg:flex-row justify-between items-center gap-4 py-16 px-5 lg:px-0 md:py-24 lg:pl-28 overflow-hidden bg-[url('https://marcello.qodeinteractive.com/wp-content/uploads/2022/04/home-noise-.png')]`}>
-        <div>
+      <div className={`flex flex-col lg:flex-row justify-between items-center  gap-8 pt-16 px-4 lg:px-0 md:py-24 lg:pl-28 overflow-hidden bg-[url('https://marcello.qodeinteractive.com/wp-content/uploads/2022/04/home-noise-.png')]`}>
+        <div className="w-full md:w-auto">
           <span className={`${fraunces.className} text-[18px] sm:text-[24px] md:text-[34px] text-[#F43B00] italic mb-4`}>Family Pizzeria</span>
           <h1 className={`${staatliches.className} text-[60px] sm:text-[80px] md:text-[90px] lg:text-[110px] font-bold uppercase  leading-[55px] sm:leading-[70px] md:leading-[99px] text-[#F43B00]`}>
             WELCOME<br />
@@ -66,7 +66,7 @@ export default function Home() {
           </div>
 
           <div>
-            <span className={`${fraunces.className} text-[16px] text-[#F43B00]`}>* CALL US NOW +00 458 713 55</span>
+            <span className={`${fraunces.className} text-[12px] sm:text-[14px] md:text-[16px] text-[#F43B00]`}>* CALL US NOW +00 458 713 55</span>
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function Home() {
       <div className="py-[80px] px-[20px] md:px-[50px] lg:px-[100px] bg-[url('https://marcello.qodeinteractive.com/wp-content/uploads/2022/04/home-noise-.png')]">
         <form action="" className="p-0 m-0 space-y-6">
           <h2 className={`${staatliches.className} text-[50px] font-bold uppercase text-[#F43B00]`}>MAKE A RESERVATION</h2>
-          <div className="grid grid-cols-1 md:flex gap-4 justify-between items-center m-0">
+          <div className="grid grid-cols-1 md:flex md:flex-wrap gap-4 justify-between items-center m-0">
             <div className="relative grow">
               <select name="person" className="border border-[#F43B00] text-[#F43B00] border-b-4 px-8 py-4 w-full rounded focus:outline-none">
                 <option value="person1">Person 1</option>
@@ -153,14 +153,14 @@ export default function Home() {
       <div className="flex items-center justify-center h-[700px] bg-fixed bg-center bg-cover custom-img bg-img"></div>
 
       {/* Menu Item */}
-      <div className="flex items-stretch flex-col-reverse lg:flex-row">
+      <div className="flex items-stretch flex-col lg:flex-row">
         <div className="bg-[#F43B00] grow text-white p-5 py-14 md:p-10 lg:p-28 flex flex-col justify-between">
           <div>
             <span className={`${fraunces.className} text-[18px] sm:text-[24px] md:text-[34px]  italic mb-4`}>From Our Menu</span>
             <h2 className={`${staatliches.className} text-[36px] sm:text-[60px] md:text-[80px] font-bold uppercase leading-[30px] sm:leading-[50px] md:leading-[70px]`}>POPULAR PICKS &<br /> NEW TASTES!</h2>
           </div>
           <div>
-            <p>VOLUPTATEM EA RERUM NISI. ULLAM DEBITIS OPTIO. QUAE ODIO</p>
+            <p className="text-[12px] sm:text-[14px] md:text-[16px]">VOLUPTATEM EA RERUM NISI. ULLAM DEBITIS OPTIO. QUAE ODIO</p>
           </div>
         </div>
         <div className="md:grow p-5 py-14 md:p-10 lg:p-28">

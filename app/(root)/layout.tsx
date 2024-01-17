@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 import React from 'react'
-import Nabvar from '../compontents/nabvar/Nabvar'
 import AuthSession from '../HOC/AuthSession'
 import { Session } from 'next-auth'
+import NavgationControl from './NavgationControl'
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -16,10 +16,12 @@ interface LayoutProps {
 
 export default function Layout({ children, session }: LayoutProps) {
     return (
-        <AuthSession session={session}>
-            <Nabvar />
-
-            {children}
-        </AuthSession>
+        <div className='w-full'>
+            <AuthSession session={session}>
+                <NavgationControl>
+                    {children}
+                </NavgationControl>
+            </AuthSession>
+        </div>
     )
 }

@@ -24,7 +24,7 @@ const AddCategoryCSRC = () => {
     }
     return (
         <>
-            <div className="flex gap-4 items-center justify-center">
+            <div className="flex gap-4 items-center justify-center w-full flex-wrap">
                 <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block appearance-none" type="email" value={category} onChange={(e) => setCategory(e.target.value)} placeholder='Category Name' />
                 <div className="">
                     <button className="bg-gray-700 text-white text-sm font-bold py-2.5 px-4 w-full rounded hover:bg-gray-600"

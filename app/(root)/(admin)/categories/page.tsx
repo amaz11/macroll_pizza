@@ -6,7 +6,7 @@ import CategorySSRC from '@/app/compontents/ssrc/allCategory/CategorySSRC'
 const Category = () => {
 
     return (
-        <div className='px-[100px] py-[80px]'>
+        <div className='px-[20px] md:px-[40px] lg:px-[100px] py-[80px]'>
             <AddCategoryCSRC />
             <CategorySSRC />
         </div>

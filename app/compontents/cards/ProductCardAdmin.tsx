@@ -146,12 +146,12 @@ const ProductCardAdmin = ({ data }: ProductArr) => {
     }
 
     return (
-        <div className='px-[40px] py-[80px] md:px-[60px] xl:px-[100px] xl:py-[80px]'>
+        <div className='px-[20px] py-[80px] md:px-[60px] xl:px-[100px] '>
             <form onSubmit={onSubmit}>
-                <div className='grid  grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5'>
+                <div className='grid  grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-center items-center'>
                     {
                         data?.map((value: ProductData) => {
-                            return <div className="w-80 bg-white shadow rounded-md" key={value.id}>
+                            return <div className=" bg-white shadow rounded-md" key={value.id}>
                                 <div className="h-48 w-full bg-gray-200 flex flex-col justify-between p-4 bg-cover bg-center product-overlay" style={{ backgroundImage: `url(${product && product.id === value.id && image ? URL.createObjectURL(image) : value.image})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
                                     <div className=" z-10">
                                         {
@@ -232,7 +232,7 @@ const ProductCardAdmin = ({ data }: ProductArr) => {
                                             <h4 className="text-gray-800 text-center mt-1 font-medium">{value.name.toUpperCase()}</h4>
                                             <p className="text-center text-gray-800 mt-1 font-semibold">{value.price} /-</p>
                                             <p className="text-gray-700 font-normal text-sm text-center"> {value.description}</p>
-                                            <div className='text-center'>{value.category?.map((categoryValue: { id: number, category?: string }) => {
+                                            <div className='text-center flex flex-wrap justify-center items-center'>{value.category?.map((categoryValue: { id: number, category?: string }) => {
                                                 return <span className='text-[#F43B00] mr-1 last:mr-0 after:content-[","] last:after:content-[""] text-center' key={categoryValue.id}>{categoryValue.category}</span>
                                             })}</div>
                                         </div>

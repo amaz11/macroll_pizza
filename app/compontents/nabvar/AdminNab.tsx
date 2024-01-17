@@ -15,7 +15,7 @@ const AdminNab = () => {
     const session = useSession()
     const user = session.data?.user as User
     return (
-        <div className='flex justify-center items-center gap-8 text-white'>
+        <div className='flex justify-center items-center flex-wrap gap-8 text-white'>
             {session && session.status === "authenticated" && session.data?.user ? <Link className={`${path === `/profile/${user.id}` ? 'bg-[#F43B00]' : 'bg-gray-200 text-slate-800 '} cursor-pointer  rounded-full py-1 px-6`} href={`/profile/${user.id}`}>Profile</Link> : null}
 
             {
