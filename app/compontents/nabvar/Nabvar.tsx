@@ -8,7 +8,7 @@ import { FiShoppingCart } from "react-icons/fi"
 import { FaBars } from "react-icons/fa";
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
-
+import { FaBarsStaggered } from "react-icons/fa6";
 
 interface User {
     id: string,
@@ -62,8 +62,11 @@ const Nabvar = ({ navcon, setNavcon }: { navcon: boolean, setNavcon: (navcon: bo
                 <div className='hidden md:block'>
                     {session.status === "authenticated" ? <button onClick={() => signOut()}>Sign out</button> : <button onClick={() => { signIn(); redirect('/') }}>Sing-in</button>}
                 </div>
-                <div className='block lg:hidden'>
-                    <FaBars size={28} className='text-[#F43B00]' onClick={() => setNavcon(!navcon)} />
+                <div className='block lg:hidden transition-all duration-200'>
+                    {
+
+                        navcon ? <FaBarsStaggered size={28} className='text-[#F43B00] -rotate-180' onClick={() => setNavcon(!navcon)} /> : <FaBars size={28} className='text-[#F43B00]' onClick={() => setNavcon(!navcon)} />
+                    }
                 </div>
             </div>
         </div>

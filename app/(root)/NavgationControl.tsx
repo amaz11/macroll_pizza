@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Nabvar from '../compontents/nabvar/Nabvar'
 import Sidebar from '../compontents/sidebar/Sidebar'
+import { RxCross2 } from 'react-icons/rx'
 
 const NavgationControl = ({ children }: { children: React.ReactNode }) => {
     const [navcon, setNavcon] = useState<boolean>(false)
@@ -15,6 +16,9 @@ const NavgationControl = ({ children }: { children: React.ReactNode }) => {
             </div>
             {/* */}
             <div className={`w-52 h-full fixed top-0 right-0 transition-all border-l-2 border-gray-100 bg-white z-50 md:w-[20%] ${navcon ? '' : '-mr-64 '} lg:hidden`}>
+                <div className="pt-3 pr-4 flex justify-end" >
+                    <RxCross2 size={18} className="text-[#F43B00] cursor-pointe" onClick={() => setNavcon(!navcon)} />
+                </div>
                 <Sidebar />
             </div>
         </div>
