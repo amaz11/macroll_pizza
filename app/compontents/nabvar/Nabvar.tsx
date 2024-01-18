@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useContext } from 'react'
 import logo from '@/public/home-3-logo.png'
 import { mooli } from '@/app/layout'
 import Link from 'next/link'
@@ -9,6 +9,7 @@ import { FaBars } from "react-icons/fa";
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import { FaBarsStaggered } from "react-icons/fa6";
+import { CartContextCreate, CartContextType } from '@/app/HOC/CartContext'
 
 interface User {
     id: string,
@@ -20,6 +21,7 @@ interface User {
 const Nabvar = ({ navcon, setNavcon }: { navcon: boolean, setNavcon: (navcon: boolean) => void }) => {
     const session = useSession()
     const user = session.data?.user as User
+    const { cart } = useContext(CartContextCreate) as CartContextType
 
     return (
         <div className={`${mooli.className} flex justify-between items-center p-4 md:p-8`}>
@@ -52,10 +54,10 @@ const Nabvar = ({ navcon, setNavcon }: { navcon: boolean, setNavcon: (navcon: bo
             }} /></div>
 
             <div className='flex gap-4 items-center'>
-                <div className='relative'>
-                    <FiShoppingCart size={24} className={`text-[#F43B00]`} />
-                    <span className='absolute -top-[18px] -right-2 font-semibold text-lg text-[#F43B00]'>0</span>
-                </div>
+                <Link href={'/cart'} className='relative cursor-pointer'>
+                    <FiShoppingCart size={24} className={`text-[#F43B00] `} />
+                    <span className='absolute -top-[18px] -right-2 font-semibold text-lg text-[#F43B00]'>{cart.length}</span>
+                </Link>
                 <div className='hidden md:block'>
                     {session && session.status === "authenticated" && session.data?.user ? <Link href={`/profile/${user.id}`} >Profile</Link> : null}
                 </div>

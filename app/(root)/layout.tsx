@@ -2,7 +2,9 @@ import { Metadata } from 'next'
 import React from 'react'
 import AuthSession from '../HOC/AuthSession'
 import { Session } from 'next-auth'
-import NavgationControl from './NavgationControl'
+import NavgationControl from '../HOC/NavgationControl'
+import CartContextProvider from '../HOC/CartContext'
+
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -18,9 +20,11 @@ export default function Layout({ children, session }: LayoutProps) {
     return (
         <div className='w-full'>
             <AuthSession session={session}>
-                <NavgationControl>
-                    {children}
-                </NavgationControl>
+                <CartContextProvider>
+                    <NavgationControl>
+                        {children}
+                    </NavgationControl>
+                </CartContextProvider>
             </AuthSession>
         </div>
     )
