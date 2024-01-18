@@ -1,4 +1,3 @@
-'use client'
 import ProductSlider from "@/app/compontents/slider/ProductSlider";
 import Slider from "@/app/compontents/slider/Slider";
 import { fraunces, mooli, staatliches } from "@/app/layout";
