@@ -15,27 +15,56 @@ enum Role {
   USER
 }
 
+enum Shipping {
+  PENDING
+  SHIPPING
+  COMPLETED
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String   @db.VarChar(30)
   address   String   @db.VarChar(250)
   role      Role     @default(USER)
+  order     Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Product {
-  id          Int          @id @default(autoincrement())
-  image       String
-  name        String       @db.VarChar(100)
-  price       Decimal      @db.Decimal(10, 2)
-  description String       @db.VarChar(1000)
-  category    Categories[]
+  id                  Int                   @id @default(autoincrement())
+  image               String
+  name                String                @db.VarChar(100)
+  price               Decimal               @db.Decimal(10, 2)
+  description         String                @db.VarChar(1000)
+  category            Categories[]
+  ProductWithQuantity ProductWithQuantity[]
 }
 
 model Categories {
   id       Int       @id @default(autoincrement())
   category String    @db.VarChar(30)
   product  Product[]
+}
+
+model Order {
+  id             Int                   @id @default(autoincrement()) // should not have unique id
+  inventoryCode  String
+  userId         Int
+  user           User                  @relation(fields: [userId], references: [id])
+  product        ProductWithQuantity[]
+  totalPrice     Decimal               @db.Decimal(50, 2)
+  shippingStatus Shipping              @default(PENDING)
+  createdAT      DateTime              @default(now())
+  updatedAT      DateTime              @default(now())
+}
+
+model ProductWithQuantity {
+  id        Int     @id @default(autoincrement())
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
 }

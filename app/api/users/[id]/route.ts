@@ -6,7 +6,10 @@ export async function GET(req: Request,) {
         if (userId === null) {
             return Response.json({ error: 'Invalid ID provided' }, { status: 403 });
         }
-        const user = await prisma?.user.findUnique({ where: { id: userId }, select: { id: true, email: true, address: true } })
+        const user = await prisma?.user.findUnique({
+            where: { id: userId },
+            select: { id: true, email: true, address: true, order: { include: { product: { include: { product: true } } } } },
+        })
 
         if (!user) {
             return Response.json({ error: 'User not found' }, { status: 404 });
