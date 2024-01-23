@@ -3,12 +3,47 @@ import ProductMenuCard from '@/app/compontents/cards/ProductMenuCard'
 import { useRouter } from 'next/navigation'
 import React, { useContext } from 'react'
 import { CartContextCreate, CartContextType } from '@/app/HOC/CartContext'
+import StripeCheckout from "react-stripe-checkout";
+import { useSession } from 'next-auth/react'
+import Link from 'next/link'
+
+interface User {
+    id: string,
+    role: string,
+    address: string,
+    email: string,
+}
 
 
 const Cart = () => {
+    const session = useSession()
     const router = useRouter()
-    const { cart } = useContext(CartContextCreate) as CartContextType
+    const user = session.data?.user as User
 
+    const { cart } = useContext(CartContextCreate) as CartContextType
+    const makePaymentRequest = async (token: any) => {
+        console.log(token)
+
+        const res = await fetch('/api/order', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                token,
+                cart,
+                userId: user.id
+            })
+
+        })
+        const data = await res.json()
+        console.log(data)
+    }
+    if (cart.length === 0) {
+        return <div className='flex flex-col justify-center items-center h-screen'>
+            <button className='text-base leading-none px-10 py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white'>Go back To shopping</button>
+        </div>
+    }
     return (
         <div>
             <div className="flex lg:flex-row flex-col justify-center lg:gap-14" id="cart">
@@ -52,13 +87,35 @@ const Cart = () => {
                                 <p className="text-2xl leading-normal text-gray-800">Total</p>
                                 <p className="text-2xl font-bold leading-normal text-right text-gray-800">{cart?.reduce((a, b) => (+a) + (+b.price), 0)}</p>
                             </div>
-                            <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
-                                Checkout
-                            </button>
+                            {
+                                session.status === 'authenticated' ? <StripeCheckout
+
+                                    stripeKey={`${process.env.STRIPE_KEY}`}
+
+                                    //token fires a return method
+
+                                    token={makePaymentRequest}
+
+                                    // token={(token) => console.log(token)}
+
+                                    name="Payment"
+
+                                >
+
+                                    <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
+                                        Checkout
+                                    </button>
+
+                                </StripeCheckout> : <Link href={'/auth/signin'} className="text-base text-center block leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
+                                    Checkout
+                                </Link>
+                            }
+
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }
